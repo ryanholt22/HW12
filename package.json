@@ -1,0 +1,22 @@
+{
+  "name": "hw12",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ryanholt22/HW12.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ryanholt22/HW12/issues"
+  },
+  "homepage": "https://github.com/ryanholt22/HW12#readme",
+  "dependencies": {
+    "mysql": "^2.17.1"
+  }
+}
