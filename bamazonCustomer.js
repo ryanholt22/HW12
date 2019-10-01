@@ -48,7 +48,7 @@ inquirer
      if (err) throw (err);
      console.log(res);
    }) +
-   "left in stock!", name:"stock quantity",}
+   "left in stock!", name:"you bought:",}
   ])
   .then(answers => {
     console.log(answers);
