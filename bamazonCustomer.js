@@ -1,5 +1,6 @@
 var mysql = require('mysql');
 var inquirer = require("inquirer");
+var fs = require("fs");
 
 var connection = mysql.createConnection({
   host     : 'localhost',
@@ -36,24 +37,30 @@ inquirer
   .then(answers => {
     answers["Shopping Cart"];
     quantity();
+    function quantity() {
+      inquirer
+      .prompt([
+        {type:'input',
+      message:"How many Would you like to purchase? We have" +
+       connection.query("SELECT stock_quantity FROM products", function(err, res) {
+         if (err) throw (err);
+       }) +
+       "left in stock!", name:"you bought:",}
+      ])
+      .then(answers => {
+        console.log(answers);
+        productLeft();
+      })
+    }
   });
     })
   }
-  function quantity() {
-  inquirer
-  .prompt([
-    {type:'input',
-  message:"How many Would you like to purchase? We have" +
-   connection.query("SELECT stock_quantity FROM products", function(err, res) {
-     if (err) throw (err);
-     console.log(res);
-   }) +
-   "left in stock!", name:"you bought:",}
-  ])
-  .then(answers => {
-    console.log(answers);
-  })
-}
+  function productLeft() {
+    connection.query("SELECT stock_quantity FROM products", function(err, res){
+      if (err) throw "yikes";
+      console.log(res);
+  });
+  }
   //killing the connection 
   
    function killconnection() {
