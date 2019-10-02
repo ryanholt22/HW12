@@ -10,11 +10,6 @@ var connection = mysql.createConnection({
   database: "bamazon"
 });
 
-
-app.get("/", function(req, res) {
-  res.json(path.join(__dirname, "/index.html"));
-});
-
 connection.connect(function (err) {
   if (err) {
     console.error('error connecting: ' + err.stack);
