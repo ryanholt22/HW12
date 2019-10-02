@@ -2,6 +2,6 @@
 ![image one]
 (/images/one)
 ![image two]
-(/images/two)
+(/images/2)
 ![image three]
-(/images/three)
+(/images/3)
