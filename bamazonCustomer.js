@@ -9,6 +9,10 @@ var connection = mysql.createConnection({
   database: "bamazon"
 });
 
+app.listen(process.env.PORT || 3000, function(){
+  console.log("Express server listening on port %d in %s mode", this.address().port, app.settings.env);
+});
+
 connection.connect(function (err) {
   if (err) {
     console.error('error connecting: ' + err.stack);
