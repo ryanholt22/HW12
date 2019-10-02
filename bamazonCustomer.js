@@ -47,27 +47,50 @@ function afterConnection() {
               type: 'input',
               message: "How many Would you like to purchase? We have " + res[0].stock_quantity +
                 " left in stock!",
-                name: "whatever"
+                name: "purchased"
             }
           ])
-          .then(answers => {
-            console.log(answers);
-            productLeft();
+          .then(function(answers) {
+            if(res[0].stock_quantity >= answers.purchased) {
+              var itemQuantity = res[0].stock_quantity - answers.purchased;
+              connection.query("UPDATE products SET ? WHERE ?", [
+                {
+                  stock_quantity: itemQuantity
+                }, {
+                  item_id:answers.id
+                }])
+                var cost = res[0].price * answers.purchased;
+                console.log("You have placed the order! total price is $"+ cost);
+                customerPrompt();
+            }
           })
         });
-        
       });
   })
 }
-function productLeft() {
-  connection.query("SELECT stock_quantity FROM products", function (err, res) {
-    if (err) throw "yikes";
-    console.log(res);
-  });
-}
+
 //killing the connection 
 
 function killconnection() {
   console.log("killing connection.");
   connection.end();
+};
+
+var customerPrompt = function() {
+  inquirer.prompt({
+      name: "action",
+      type: "list",
+      message: " Would like to continue shopping?",
+      choices: ["Yes", "No"]
+  }).then(function(answer) {
+      switch(answer.action) {
+          case 'Yes':
+              afterConnection();
+          break;
+
+          case 'No':
+              connection.end();
+          break;
+      }
+  })
 };
